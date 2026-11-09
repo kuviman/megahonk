@@ -14,6 +14,7 @@ compile-mks backend:
 
 compile-c:
     gcc target/main.c \
+        -Iminicoro \
         -lm \
         -lraylib \
         -o target/main
