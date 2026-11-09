@@ -24,7 +24,7 @@ compile-emscripten:
     emcc target/main.c \
         $RAYLIB_WEB \
         -o target/web/index.html \
-        -I. -I $RAYLIB/include \
+        -I. -Iminicoro -I $RAYLIB/include \
         -Os \
         -s USE_GLFW=3 \
         --preload-file assets \
