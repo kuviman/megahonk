@@ -39,6 +39,7 @@ const init_state = (settings :: Settings) -> StateT => {
         car.tint = RED;
         car.is_player = true;
         {
+            .moved = false,
             .car = car,
             .fuel = settings.fuel_capacity,
             .anger = 0,

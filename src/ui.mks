@@ -100,6 +100,8 @@ const draw_ui = () => (
             .x = div[Float](Int_to_Float(raylib_GetRenderWidth()), 2),
             .y = div[Float](Int_to_Float(raylib_GetRenderHeight()), 2),
         },
+        .rotation = 0,
+        .target = { .x = 0, .y = 0 },
         .zoom = div[Float](Int_to_Float(raylib_GetRenderHeight()), fov),
     };
     with CameraContext = camera;

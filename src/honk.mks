@@ -24,10 +24,10 @@ const do_honk = (car :: &Car) => (
     );
 );
 
-const player_honk = () => unwindable fn (
+const player_honk = () => unwindable f (
     let state = &(@current State);
     if greater[Float](state^.player.car.honk_cooldown, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     if greater_or_equal[Float](state^.player.anger, 1) then (
         play_sound((@current Assets).sfx.mega_honk, 0, 1);

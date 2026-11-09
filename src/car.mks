@@ -19,6 +19,7 @@ const Car_new = (pos :: Vector2) -> Car => {
         random_Float_range(0, 1),
         random_Float_range(0.5, 1),
     ),
+    .steer = 0,
     .pos = pos,
     .vel = { .x = 0, .y = 0 },
     .rotation = Angle_from_degrees(neg[Float](90)),
@@ -247,6 +248,7 @@ const Car_draw = (car :: &Car, angry :: Bool) => (
 );
 
 const CarInput = struct {
-    .accelerate :: Float, # -1..1
+    .accelerate :: Float, 
+    # -1..1
     .steer :: Float, # -1..+1
 };

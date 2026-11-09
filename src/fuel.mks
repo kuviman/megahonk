@@ -16,7 +16,7 @@ const FuelState_new = () -> FuelState => {
     .spawn_interval = 10,
 };
 
-const FuelCan_retain = (can :: FuelCan) -> Bool => unwindable fn (
+const FuelCan_retain = (can :: FuelCan) -> Bool => unwindable f (
     let state = &(@current State);
     if less[Float](Vector2_length(Vector2_sub(can.pos, state^.player.car.pos)), CAR_RADIUS) then (
         state^.player.fuel = min[Float](
@@ -25,7 +25,7 @@ const FuelCan_retain = (can :: FuelCan) -> Bool => unwindable fn (
         );
         play_sound((@current Assets).sfx.fuel_pickup, 0.1, 1);
         state^.stats.fuel_collected = add[Int](state^.stats.fuel_collected, 1);
-        unwind fn with false;
+        unwind f with false;
     );
     less[Float](abs[Float](sub[Float](state^.player.car.pos.y, can.pos.y)), add[Float](TRAFFIC_SPAWN_DISTANCE, 3))
 );

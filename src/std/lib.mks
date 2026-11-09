@@ -5,14 +5,6 @@ const String_to_C_String = (s :: String) -> C_String => (
     s.contents
 );
 
-const div = [T] (a :: T, b :: T) -> T => (
-    @native "\(a) / \(b)"
-);
-
-const rem = [T] (a :: T, b :: T) -> T => (
-    @native "\(a) % \(b)"
-);
-
 const neg = [T] (x :: T) -> T => (
     @native "-\(x)"
 );

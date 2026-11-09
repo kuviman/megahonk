@@ -46,10 +46,10 @@ const play_sound = (
     sound :: Sound,
     pitch_range :: Float,
     volume :: Float,
-) => unwindable fn (
+) => unwindable f (
     volume = mul[Float](volume, sub[Float](1, (@current State).outro));
     if less[Float](volume, 0.1) then (
-        unwind fn with ();
+        unwind f with ();
     );
     let ctx = &(@current AudioContext);
     sound = raylib_LoadSoundAlias(sound);

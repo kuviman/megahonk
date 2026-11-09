@@ -1,6 +1,6 @@
-const draw_background_texture = (texture :: Texture, dest_rect :: Rectangle) => unwindable fn (
+const draw_background_texture = (texture :: Texture, dest_rect :: Rectangle) => unwindable f (
     if less[Float](dest_rect.width, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     let source_rect :: Rectangle = {
         .x = mul[Float](dest_rect.x, PIXELS_PER_UNIT),

@@ -30,7 +30,7 @@ const Trails_deinit = (trails :: Trails) => (
     raylib_UnloadRenderTexture(trails.old);
 );
 
-const draw_car_trails = (car :: &Car) => unwindable fn (
+const draw_car_trails = (car :: &Car) => unwindable f (
     let direction = Vector2_from_angle(car^.rotation);
     let normalized_vel = Vector2_div(car^.vel, CAR_MAX_SPEED);
     let drift = min[Float](abs[Float](Vector2_skew(normalized_vel, direction)), 1);
@@ -41,7 +41,7 @@ const draw_car_trails = (car :: &Car) => unwindable fn (
     );
     let alpha = Float_to_UInt8(mul[Float](k, 200));
     if equal[UInt8](alpha, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     let color :: Color = { .r = 0, .g = 0, .b = 0, .a = alpha };
     let i :: Int = 0;

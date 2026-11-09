@@ -1,11 +1,11 @@
 const ArrayList = [T] struct {
-    .buffer :: List[T],
+    .buffer :: Array[T],
     .length :: UInt,
 };
 
 const ArrayList_new = [T] () -> ArrayList[T] => (
     {
-        .buffer = empty_list[T](),
+        .buffer = Array_empty[T](),
         .length = 0,
     }
 );
@@ -21,19 +21,19 @@ const ArrayList_push = [T] (a :: &ArrayList[T], element :: T) -> () => (
         ) else (
             mul[UInt](a^.buffer.length, 2)
         );
-        let new_buffer = allocate_list[T](new_capacity);
+        let new_buffer = Array_allocate[T](new_capacity);
         let T_TypeInfo = @TypeInfo(T);
         let data_size = mul[UInt](T_TypeInfo.stride, a^.buffer.length);
-        copy_list[T](new_buffer, 0, a^.buffer, 0, a^.buffer.length);
-        free_list[T](a^.buffer);
+        Array_copy[T](new_buffer, 0, a^.buffer, 0, a^.buffer.length);
+        Array_free[T](a^.buffer);
         a^.buffer = new_buffer;
     );
-    list_index[T](a^.buffer, a^.length)^ = element;
+    Array_index[T](&a^.buffer, a^.length)^ = element;
     a^.length = add[UInt](a^.length, 1);
 );
 
 const ArrayList_index = [T] (a :: &ArrayList[T], i :: UInt) -> &T => (
-    list_index[T](a^.buffer, i)
+    Array_index[T](&a^.buffer, i)
 );
 
 const ArrayList_swap_remove = [T] (a :: &ArrayList[T], i :: UInt) -> T => (

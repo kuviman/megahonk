@@ -28,12 +28,12 @@ const Car_apply_impulse = (car :: &Car, impulse :: Vector2, do_sound :: Bool) =>
     );
 );
 
-const check_Car_Car_collision = (a :: &Car, b :: &Car) => unwindable fn (
+const check_Car_Car_collision = (a :: &Car, b :: &Car) => unwindable f (
     let delta_pos_ab = Vector2_sub(b^.pos, a^.pos);
     let dist = Vector2_length(delta_pos_ab);
     let D :: Float = 1;
     if greater[Float](dist, D) then (
-        unwind fn with ();
+        unwind f with ();
     );
     let penetration = sub[Float](D, dist);
     let normal_ab = Vector2_normalize(delta_pos_ab);
@@ -42,7 +42,7 @@ const check_Car_Car_collision = (a :: &Car, b :: &Car) => unwindable fn (
     b^.pos = Vector2_add(b^.pos, Vector2_mul(normal_ab, shift));
     let delta_vel_ab = Vector2_dot(Vector2_sub(a^.vel, b^.vel), normal_ab);
     if less[Float](delta_vel_ab, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     let impulse = Vector2_mul(normal_ab, delta_vel_ab);
     Car_apply_impulse(a, Vector2_mul(impulse, neg[Float](1)), true);
@@ -61,7 +61,7 @@ const check_Car_Car_collision = (a :: &Car, b :: &Car) => unwindable fn (
     b^.angular_velocity = Angle_add(b^.angular_velocity, angular_impulse);
 );
 
-const check_Car_Road_collision = (car :: &Car) => unwindable fn (
+const check_Car_Road_collision = (car :: &Car) => unwindable f (
     let normal :: Vector2 = {
         .x = if greater[Float](car^.pos.x, 0) then neg[Float](1) else 1,
         .y = 0,
@@ -71,12 +71,12 @@ const check_Car_Road_collision = (car :: &Car) => unwindable fn (
         sub[Float](ROAD_RADIUS, CAR_RADIUS),
     );
     if less[Float](penetration, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     car^.pos = Vector2_add(car^.pos, Vector2_mul(normal, penetration));
     let impulse = mul[Float](Vector2_dot(car^.vel, normal), neg[Float](2));
     if less[Float](impulse, 0) then (
-        unwind fn with ();
+        unwind f with ();
     );
     Car_apply_impulse(car, Vector2_mul(normal, impulse), true);
     let tangent_vel = Angle_from_radians(div[Float](Vector2_skew(car^.vel, normal), CAR_RADIUS));
